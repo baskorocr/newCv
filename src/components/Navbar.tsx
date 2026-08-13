@@ -91,7 +91,7 @@ export function Navbar({ onToggleTerminal }: NavbarProps) {
             <kbd className="hidden xl:inline text-[9px] bg-slate-100 text-slate-400 px-1.5 py-0.5 rounded border border-slate-200">~</kbd>
           </button>
           <a
-            href="/src/assets/CV_Mahesa_Putra_Baskoro_New.pdf"
+            href="/CV_Mahesa_Putra_Baskoro_New.pdf"
             download
             className="btn-primary py-1.5 px-4 text-xs cursor-pointer"
           >
@@ -138,7 +138,7 @@ export function Navbar({ onToggleTerminal }: NavbarProps) {
               ))}
               <div className="pt-2 border-t border-slate-100 mt-1">
                 <a
-                  href="/src/assets/CV_Mahesa_Putra_Baskoro_New.pdf"
+                  href="/CV_Mahesa_Putra_Baskoro_New.pdf"
                   download
                   className="btn-primary w-full justify-center text-xs cursor-pointer"
                 >

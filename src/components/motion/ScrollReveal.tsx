@@ -19,7 +19,7 @@ export function ScrollReveal({
   duration = 0.6,
   direction = 'up',
   distance = 24,
-  once = true,
+  once = false,
 }: ScrollRevealProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once, margin: '-40px 0px -40px 0px' });
@@ -69,7 +69,7 @@ export function StaggerContainer({
   children,
   className = '',
   staggerDelay = 0.1,
-  once = true,
+  once = false,
 }: StaggerContainerProps) {
   return (
     <motion.div

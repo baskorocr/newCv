@@ -14,7 +14,7 @@ export function Publications() {
           variants={staggerContainerVariant}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={{ once: false, margin: '-50px' }}
           className="mb-12"
         >
           <motion.div variants={fadeUpVariant}>
@@ -37,7 +37,7 @@ export function Publications() {
           variants={fadeUpVariant}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="max-w-4xl"
         >
           <div className="card p-6 sm:p-10">

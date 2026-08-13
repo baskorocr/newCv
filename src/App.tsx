@@ -8,9 +8,11 @@ import { Achievements } from '@/components/Achievements';
 import { Publications } from '@/components/Publications';
 import { TerminalDrawer } from '@/components/TerminalDrawer';
 import { Footer } from '@/components/Footer';
+import { SplashScreen } from '@/components/SplashScreen';
 
 export default function App() {
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [splashDone, setSplashDone] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -24,18 +26,24 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased">
-      <Navbar onToggleTerminal={() => setTerminalOpen(true)} />
-      <main>
-        <Hero />
-        <Experience />
-        <Projects />
-        <TechStack />
-        <Achievements />
-        <Publications />
-      </main>
-      <Footer />
-      <TerminalDrawer isOpen={terminalOpen} onClose={() => setTerminalOpen(false)} />
-    </div>
+    <>
+      {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
+      <div
+        className="min-h-screen bg-white text-slate-900 font-sans antialiased"
+        style={{ visibility: splashDone ? 'visible' : 'hidden' }}
+      >
+        <Navbar onToggleTerminal={() => setTerminalOpen(true)} />
+        <main>
+          <Hero />
+          <Experience />
+          <Projects />
+          <TechStack />
+          <Achievements />
+          <Publications />
+        </main>
+        <Footer />
+        <TerminalDrawer isOpen={terminalOpen} onClose={() => setTerminalOpen(false)} />
+      </div>
+    </>
   );
 }

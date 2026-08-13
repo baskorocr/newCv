@@ -9,6 +9,8 @@ import { Publications } from '@/components/Publications';
 import { TerminalDrawer } from '@/components/TerminalDrawer';
 import { Footer } from '@/components/Footer';
 import { SplashScreen } from '@/components/SplashScreen';
+import ScrollExpand from '@/components/ui/ScrollExpand';
+import { ArrowUpRight } from 'lucide-react';
 
 export default function App() {
   const [terminalOpen, setTerminalOpen] = useState(false);
@@ -37,6 +39,44 @@ export default function App() {
           <Hero />
           <Experience />
           <Projects />
+
+          {/* ── ScrollExpand: Code. Build. Deploy. ── */}
+          <div style={{ height: '100vh' }}>
+            <ScrollExpand
+              src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1600&q=80"
+              alt="Code & Technology"
+              title="Code. Build. Deploy."
+              scrollHint="scroll to explore"
+              startWidth={44}
+              startHeight={55}
+              startRadius={28}
+              endRadius={0}
+              mediaZoom={1.3}
+              scrollDistance={1.1}
+              holdDistance={0.3}
+              overlayScrim={0.55}
+            >
+              <div className="space-y-4 max-w-xl">
+                <p className="text-xs font-mono uppercase tracking-widest text-indigo-300">Fullstack · IoT · OCPP</p>
+                <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight tracking-tight">
+                  Merancang sistem dari<br />
+                  <span className="text-indigo-300">hardware ke cloud</span>
+                </h2>
+                <p className="text-sm text-white/70 leading-relaxed max-w-sm mx-auto">
+                  EV Charging OCPP, HMI manufaktur, e-Procurement —
+                  solusi end-to-end yang berjalan di production.
+                </p>
+                <a
+                  href="#skills"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-6 py-2.5 text-sm font-semibold text-white hover:bg-white/20 transition-colors"
+                >
+                  Tech Stack
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </div>
+            </ScrollExpand>
+          </div>
+
           <TechStack />
           <Achievements />
           <Publications />

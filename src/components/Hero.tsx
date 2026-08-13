@@ -3,7 +3,7 @@ import { motion, Easing } from 'framer-motion';
 import {
   Mail, Phone, Github, Linkedin, Globe, Send,
   Check, Copy, ArrowUpRight, Layers, Cpu, ChevronDown,
-  Star, Crown,
+  Star,
   Code2, Database, Server, Wifi, Smartphone, Shield
 } from 'lucide-react';
 import { PERSONAL_DATA } from '@/lib/data';

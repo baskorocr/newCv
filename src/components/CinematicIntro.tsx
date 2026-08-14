@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Code2, Cpu, Trophy, BookOpen, Briefcase } from 'lucide-react';
 import baPhoto from '@/assets/ba.png';
 import awardsPhoto from '@/assets/753343971_18611968543018580_8668398822863595065_n (1).jpg';
-import techVideo from '@/assets/tech.mp4';
-import projectVideo from '@/assets/project.mp4';
+
+const techVideo = new URL('@/assets/tech.mp4', import.meta.url).href;
+const projectVideo = new URL('@/assets/project.mp4', import.meta.url).href;
 
 interface CinematicIntroProps {
   onEnter: () => void;
@@ -174,6 +175,7 @@ export function CinematicIntro({ onEnter }: CinematicIntroProps) {
                     muted
                     loop
                     playsInline
+                    preload="none"
                     className="absolute right-0 top-0 h-full w-[60%] object-cover"
                     style={{
                       maskImage: 'linear-gradient(to left, black 35%, transparent 100%)',
@@ -186,6 +188,8 @@ export function CinematicIntro({ onEnter }: CinematicIntroProps) {
                   <img
                     src={ch.media}
                     alt=""
+                    loading={active === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
                     className="absolute right-0 top-0 h-full w-[60%] object-cover"
                     style={{
                       objectPosition: active === 0 ? '50% 10%' : 'center',
@@ -297,18 +301,17 @@ export function CinematicIntro({ onEnter }: CinematicIntroProps) {
                   }}
                 >
                   {/* thumbnail */}
-                  <div className="w-10 h-10 rounded overflow-hidden shrink-0 border border-white/10">
+                  <div className="w-10 h-10 rounded overflow-hidden shrink-0 border border-white/10 bg-zinc-800">
                     {c.mediaType === 'video' ? (
-                      <video
-                        src={c.media}
-                        className="w-full h-full object-cover"
-                        muted
-                        playsInline
-                      />
+                      <div className="w-full h-full flex items-center justify-center">
+                        <c.icon className="w-4 h-4 text-zinc-500" />
+                      </div>
                     ) : (
                       <img
                         src={c.media}
                         alt={c.label}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                         style={{ objectPosition: i === 0 ? '50% 10%' : 'center' }}
                       />

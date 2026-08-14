@@ -117,6 +117,7 @@ const ScrollExpand = ({
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let raf = 0, current = 0, target = 0, stageH = 0, running = false;
+    let cachedTop = 0; // cache getBoundingClientRect to avoid forced reflow on scroll
 
     const measure = () => {
       const c = propsRef.current;
@@ -133,8 +134,7 @@ const ScrollExpand = ({
       if (!c.enabled) return 1;
       const span = stageH * Math.max(0.01, c.scrollDistance);
       if (c.useWindowScroll) {
-        const top = track.getBoundingClientRect().top;
-        return clamp(-top / span, 0, 1);
+        return clamp(-cachedTop / span, 0, 1);
       }
       return clamp(root.scrollTop / span, 0, 1);
     };
@@ -151,14 +151,21 @@ const ScrollExpand = ({
     const kick = () => { if (running) return; running = true; if (!raf) raf = requestAnimationFrame(tick); };
 
     const onScroll = () => {
+      if (propsRef.current.useWindowScroll) {
+        cachedTop = track.getBoundingClientRect().top; // read once per scroll event
+      }
       target = readProgress();
       if (propsRef.current.smoothing <= 0 || reduceMotion) { current = target; applyProgress(current); return; }
       kick();
     };
 
-    const onResize = () => { measure(); target = readProgress(); current = target; applyProgress(current); };
+    const onResize = () => {
+      cachedTop = track.getBoundingClientRect().top;
+      measure(); target = readProgress(); current = target; applyProgress(current);
+    };
 
     measure();
+    cachedTop = track.getBoundingClientRect().top;
     target = readProgress();
     current = target;
     applyProgress(current);

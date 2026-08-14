@@ -31,7 +31,7 @@ const CHAPTERS = [
   {
     id: '02',
     label: 'Experience',
-    sub: 'Dharma Group',
+    sub: '',
     icon: Briefcase,
     href: '#experience',
     media: techVideo,
@@ -91,15 +91,14 @@ const CHAPTERS = [
 ];
 
 export function CinematicIntro({ onEnter }: CinematicIntroProps) {
-  const [active, setActive]     = useState(0);
-  const [prev, setPrev]         = useState<number | null>(null);
-  const [exiting, setExiting]   = useState(false);
-  const [ready, setReady]       = useState(false);
-  const [progress, setProgress] = useState(0);
-  const navRef   = useRef<HTMLDivElement>(null);
+  const [active, setActive]   = useState(0);
+  const [exiting, setExiting] = useState(false);
+  const navRef    = useRef<HTMLDivElement>(null);
   const itemRefs  = useRef<(HTMLButtonElement | null)[]>([]);
+  const barRefs   = useRef<(HTMLDivElement | null)[]>([]);
   const rafRef    = useRef<number>(0);
   const startRef  = useRef<number>(0);
+  const activeRef = useRef(0);
 
   useEffect(() => {
     const el = itemRefs.current[active];
@@ -108,20 +107,18 @@ export function CinematicIntro({ onEnter }: CinematicIntroProps) {
     }
   }, [active]);
 
+  // progress bar (direct DOM — no setState per frame)
   useEffect(() => {
-    const t = setTimeout(() => setReady(true), 120);
-    return () => clearTimeout(t);
-  }, []);
-
-  // progress bar + auto-advance
-  useEffect(() => {
-    setProgress(0);
+    const bar = barRefs.current[active];
+    if (bar) bar.style.width = '0%';
     startRef.current = performance.now();
+    activeRef.current = active;
 
     const tick = (now: number) => {
-      const elapsed = now - startRef.current;
-      const pct = Math.min((elapsed / AUTO_INTERVAL) * 100, 100);
-      setProgress(pct);
+      if (activeRef.current !== active) return;
+      const pct = Math.min(((now - startRef.current) / AUTO_INTERVAL) * 100, 100);
+      const bar = barRefs.current[active];
+      if (bar) bar.style.width = `${pct}%`;
       if (pct < 100) {
         rafRef.current = requestAnimationFrame(tick);
       } else {
@@ -134,7 +131,7 @@ export function CinematicIntro({ onEnter }: CinematicIntroProps) {
 
   const goTo = (i: number) => {
     cancelAnimationFrame(rafRef.current);
-    setPrev(active);
+    activeRef.current = i;
     setActive(i);
   };
 
@@ -189,6 +186,8 @@ export function CinematicIntro({ onEnter }: CinematicIntroProps) {
                   <img
                     src={ch.media}
                     alt=""
+                    width={720}
+                    height={1080}
                     loading={active === 0 ? 'eager' : 'lazy'}
                     fetchPriority={active === 0 ? 'high' : 'auto'}
                     decoding="async"
@@ -312,6 +311,8 @@ export function CinematicIntro({ onEnter }: CinematicIntroProps) {
                       <img
                         src={c.media}
                         alt={c.label}
+                        width={40}
+                        height={40}
                         loading="lazy"
                         decoding="async"
                         className="w-full h-full object-cover"
@@ -333,8 +334,9 @@ export function CinematicIntro({ onEnter }: CinematicIntroProps) {
                   {active === i && (
                     <div className="absolute bottom-0 left-0 h-[2px] bg-white/10 w-full">
                       <div
-                        className="h-full transition-none"
-                        style={{ width: `${progress}%`, background: ch.accent }}
+                        ref={el => { barRefs.current[i] = el; }}
+                        className="h-full"
+                        style={{ width: '0%', background: ch.accent }}
                       />
                     </div>
                   )}

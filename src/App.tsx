@@ -9,12 +9,16 @@ import { Publications } from '@/components/Publications';
 import { TerminalDrawer } from '@/components/TerminalDrawer';
 import { Footer } from '@/components/Footer';
 import { SplashScreen } from '@/components/SplashScreen';
+import { CinematicIntro } from '@/components/CinematicIntro';
 import ScrollExpand from '@/components/ui/ScrollExpand';
 import { ArrowUpRight } from 'lucide-react';
 
 export default function App() {
   const [terminalOpen, setTerminalOpen] = useState(false);
-  const [splashDone, setSplashDone] = useState(false);
+  const [splashDone, setSplashDone]     = useState(false);
+  const [introDone, setIntroDone]       = useState(false);
+
+  const showIntro = () => setIntroDone(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -30,11 +34,12 @@ export default function App() {
   return (
     <>
       {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
+      {splashDone && !introDone && <CinematicIntro onEnter={() => setIntroDone(true)} />}
       <div
         className="min-h-screen bg-white text-slate-900 font-sans antialiased"
-        style={{ visibility: splashDone ? 'visible' : 'hidden' }}
+        style={{ visibility: introDone ? 'visible' : 'hidden' }}
       >
-        <Navbar onToggleTerminal={() => setTerminalOpen(true)} />
+        <Navbar onToggleTerminal={() => setTerminalOpen(true)} onShowIntro={showIntro} />
         <main>
           <Hero />
           <Experience />

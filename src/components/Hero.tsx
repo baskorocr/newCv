@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import { PERSONAL_DATA } from '@/lib/data';
 import { ContainerScroll } from '@/components/ui/container-scroll-animation';
-import baPhoto from '@/assets/ba.png';
 
 const fadeUp = (i = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -170,39 +169,8 @@ export function Hero() {
               </div>
             </div>
 
-            {/* ── Right: Photo + Cards ── */}
-            <div className="lg:col-span-5 space-y-4 lg:mt-8">
-
-              {/* Photo glass card */}
-              <div className="hero-fade hd-5 relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
-                <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none" />
-
-                {/* Photo */}
-                <div className="relative" style={{ aspectRatio: '3/4' }}>
-                  <img
-                    src={baPhoto}
-                    alt="Mahesa Putra Baskoro"
-                    className="absolute inset-0 w-full h-full object-cover rounded-3xl"
-                    style={{ objectPosition: '50% 10%' }}
-                  />
-                  {/* Gradient overlay bottom */}
-                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-zinc-950/90 to-transparent" />
-                  {/* Name + status overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <p className="text-white font-semibold text-sm leading-tight">Mahesa Putra Baskoro C.R</p>
-                    <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-green-500/20 border border-green-500/30 px-2.5 py-1">
-                      <span className="relative flex h-1.5 w-1.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
-                      </span>
-                      <span className="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Available</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
+            {/* ── Right: placeholder ── */}
+            <div className="lg:col-span-5" />
           </div>
         </div>
       </div>

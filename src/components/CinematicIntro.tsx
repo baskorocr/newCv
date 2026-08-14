@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Code2, Cpu, Trophy, BookOpen, Briefcase } from 'lucide-react';
-import baPhoto from '@/assets/ba.png';
-import awardsPhoto from '@/assets/753343971_18611968543018580_8668398822863595065_n (1).jpg';
+import awardsPhoto from '@/assets/awards.webp';
 
 const techVideo = new URL('@/assets/tech.mp4', import.meta.url).href;
 const projectVideo = new URL('@/assets/project.mp4', import.meta.url).href;
+
+const baPhoto = '/ba.webp';
 
 interface CinematicIntroProps {
   onEnter: () => void;
@@ -57,7 +58,7 @@ const CHAPTERS = [
     sub: 'IoT & Web',
     icon: Cpu,
     href: '#skills',
-    media: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80',
+    media: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=60&fm=webp',
     mediaType: 'image' as const,
     title: 'Full\nStack.\nFull\nControl.',
     desc: 'Laravel, React, Node.js, PostgreSQL, ESP32, OCPP Protocol, Docker — dari firmware hingga cloud infrastructure.',
@@ -81,7 +82,7 @@ const CHAPTERS = [
     sub: 'Research',
     icon: BookOpen,
     href: '#publication',
-    media: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&q=80',
+    media: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=60&fm=webp',
     mediaType: 'image' as const,
     title: 'Research.\nPublish.\nContribute.',
     desc: 'Publikasi ilmiah di bidang IoT dan sistem embedded — kontribusi nyata pada ekosistem teknologi Indonesia.',
@@ -189,6 +190,7 @@ export function CinematicIntro({ onEnter }: CinematicIntroProps) {
                     src={ch.media}
                     alt=""
                     loading={active === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={active === 0 ? 'high' : 'auto'}
                     decoding="async"
                     className="absolute right-0 top-0 h-full w-[60%] object-cover"
                     style={{

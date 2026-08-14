@@ -50,7 +50,7 @@ export default function App() {
             {/* ── ScrollExpand: Code. Build. Deploy. ── */}
             <div style={{ height: '100vh' }}>
               <ScrollExpand
-                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=75"
+                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=75&fm=webp"
                 alt="Code & Technology"
                 title="Code. Build. Deploy."
                 scrollHint="scroll to explore"

@@ -62,7 +62,7 @@ export function Hero() {
         <div
           className="absolute inset-0 z-0 bg-cover bg-center opacity-25"
           style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=75)`,
+            backgroundImage: `url(https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=75&fm=webp)`,
             maskImage: 'linear-gradient(180deg, transparent, black 10%, black 70%, transparent)',
             WebkitMaskImage: 'linear-gradient(180deg, transparent, black 10%, black 70%, transparent)',
           }}
